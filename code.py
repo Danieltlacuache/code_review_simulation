@@ -8,14 +8,7 @@ Renombra la función y las variables siguiendo snake_case y nombres con sentido
 
 import random
 
-#variable global, para usarlo como parámetro de input_game
-
-
-def print_instructions():
-    print("==============================================")
-    print("¡Bienvneido al juego de adivinar el número!")
-
-def start_game():
+def startGame():
     number = random.randint(1, 20)
     guess = 0
     attempts = 0
@@ -23,20 +16,15 @@ def start_game():
     while guess != number:
         guess = int(input("Ingresa tu intento: "))
         attempts += 1
-    if guess < number:
-        print("Muy bajo")
-    elif guess > number:
-        print("Muy alto")
-    elif guess == number:
-        print("¡Correcto!")
-    else:
-        print("Error")
+        if guess < number:
+            print("Muy bajo")
+        elif guess > number:
+            print("Muy alto")
+        elif guess == number:
+            print("¡Correcto!")
+        else:
+            print("Error")
     print("Número de intentos:", attempts)
+startGame()
 
-def input_game():
-    pass
-
-
-def validations_game():
-    pass
 
