@@ -58,5 +58,6 @@ def main():
     print("Adivina el número entre 1 y 20")
     validations_game()
 
+
 main()
 
