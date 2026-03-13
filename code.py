@@ -35,12 +35,6 @@ def input_game():
 
 
 def validations_game():
-    number = random.randint(1, 20)
-    guess = input_game()
-    attempts = 0
-    while guess != number:
-        attempts += 1
-        if guess < number:
             print("Muy bajo\n")
             guess = input_game()
         elif guess > number:
@@ -52,6 +46,7 @@ def validations_game():
         else:
             print("Error\n")
     print("Número de intentos:", attempts)
+startGame()
 
 def main():
     print_instructions()
