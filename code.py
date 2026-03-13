@@ -1,63 +1,56 @@
-"""
-Renombra la función y las variables siguiendo snake_case y nombres con sentido
-• Separa la lógica en al menos 3 funciones pequeñas y con un solo propósito
-• Maneja correctamente el error cuando el usuario escribe texto en vez de número (ValueError)
-• Agrega un mensaje de bienvenida + instrucciones claras
-
-"""
-
 import random
 
-#variable global, para usarlo como parámetro de input_game
 
-
-def print_instructions():
-    print()
+def mostrar_instrucciones():
+    """Imprime el mensaje de bienvenida y las reglas del juego."""
     print("==============================================")
-    print("¡Bienvenido al juego de adivinar el número!\n")
-    print("==============================================\n\n")
-    print("Instrucciones:\n")
-    print("1. El usuario debe de adivinar el número al azar que está entre\n" 
-            "el uno y el 20")
-    print("2. A partir del número ingresado el programa le va a indicar si\n" 
-    "dicho número fue muy bajo, mul alto o si adivinó\n\n")
+    print("  ¡Bienvenido al juego de adivinar el número! ")
+    print("==============================================\n")
+    print("Instrucciones:")
+    print("1. El sistema elegirá un número al azar entre 1 y 20.")
+    print("2. Debes intentar adivinarlo.")
+    print("3. Te indicaremos si tu número es muy alto o muy bajo.\n")
 
 
-def input_game():
-    try:
-        guess = int(input("Ingresa tu intento: "))
-        if(guess > 20 or guess <= 0):
-            print("valor inválido; debe de estar entre 1 y 20")
-        return guess
-    except ValueError:
-        print("valor inválido; debe de ser un número y estar en rango 1 y 20")
-    
+def obtener_entero_valido(minimo, maximo):
+    """
+    Solicita un número al usuario y valida que sea un entero 
+    dentro del rango especificado. Reintenta hasta que sea válido.
+    """
+    while True:
+        try:
+            valor = int(input(f"Ingresa tu intento ({minimo}-{maximo}): "))
+            if minimo <= valor <= maximo:
+                return valor
+            print(f"Error: El valor debe estar entre {minimo} y {maximo}.")
+        except ValueError:
+            print("Error: Entrada no válida. Por favor, escribe un número entero.")
 
 
-def validations_game():
-    number = random.randint(1, 20)
-    guess = input_game()
-    attempts = 0
-    while guess != number:
-        attempts += 1
-        if guess < number:
-            print("Muy bajo\n")
-            guess = input_game()
-        elif guess > number:
-            print("Muy alto\n")
-            guess = input_game()
-        elif guess == number:
-            print("¡Correcto!\n")
-            return
+def ejecutar_partida():
+    """Contiene la lógica principal del ciclo del juego."""
+    numero_secreto = random.randint(1, 20)
+    intentos = 0
+    adivinado = False
+
+    while not adivinado:
+        intento = obtener_entero_valido(1, 20)
+        intentos += 1
+
+        if intento < numero_secreto:
+            print("Muy bajo. ¡Intenta de nuevo!\n")
+        elif intento > numero_secreto:
+            print("Muy alto. ¡Intenta de nuevo!\n")
         else:
-            print("Error\n")
-    print("Número de intentos:", attempts)
+            print(f"¡Felicidades! Adivinaste el número en {intentos} intentos.")
+            adivinado = True
+
 
 def main():
-    print_instructions()
-    print("Adivina el número entre 1 y 20")
-    validations_game()
+    """Punto de entrada principal del programa."""
+    mostrar_instrucciones()
+    ejecutar_partida()
 
 
-main()
-
+if __name__ == "__main__":
+    main()
